@@ -1,0 +1,158 @@
+<section class="module" id="module-1" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">01</span>
+      <h1 class="module-title">入口与生成流程</h1>
+      <p class="module-subtitle">一句指令如何变成完整的互动课程</p>
+    </header>
+
+    <div class="module-body">
+      <section class="screen animate-in">
+        <h2 class="screen-heading">一句话触发整个流程</h2>
+        <p>当你说“把这个代码库变成互动课程”，技能会读取当前<span class="term" data-definition="代码库就是项目所有源文件的集合，像一个装满说明书的文件夹。">代码库</span>，并生成一个可直接打开的<span class="term" data-definition="HTML 是浏览器能直接打开的网页格式，就像一本单页电子书。">HTML</span>课程文件夹。</p>
+
+        <div class="flow-animation" data-steps='[
+          {"highlight":"flow-actor-1","label":"你发出指令"},
+          {"highlight":"flow-actor-2","label":"技能读取代码库","packet":true,"from":"actor-1","to":"actor-2"},
+          {"highlight":"flow-actor-2","label":"生成模块文件","packet":true,"from":"actor-2","to":"actor-3"},
+          {"highlight":"flow-actor-3","label":"浏览器打开课程"}
+        ]'>
+          <div class="flow-actors">
+            <div class="flow-actor" id="flow-actor-1">
+              <div class="flow-actor-icon">你</div>
+              <span>使用者</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-2">
+              <div class="flow-actor-icon">📜</div>
+              <span>技能脚本</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-3">
+              <div class="flow-actor-icon">📁</div>
+              <span>课程文件夹</span>
+            </div>
+          </div>
+
+          <div class="flow-packet" id="flow-packet"></div>
+
+          <div class="flow-step-label" id="flow-label">点击“Next Step”开始</div>
+
+          <div class="flow-controls">
+            <button class="btn flow-next-btn">Next Step</button>
+            <button class="btn flow-reset-btn">Restart</button>
+            <span class="flow-progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">组装课程的关键脚本</h2>
+        <p>真正把模块拼成完整页面的是一个<span class="term" data-definition="脚本是可以直接执行的一段指令集合，像一个自动化小帮手。">脚本</span>：`build.sh`。它把课程碎片拼成单个页面。</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+            <pre><code>
+<span class="code-line"><span class="code-comment"># Assembles the course from parts.</span></span>
+<span class="code-line"><span class="code-comment"># Run from the course directory: bash build.sh</span></span>
+<span class="code-line"><span class="code-keyword">set</span> -e</span>
+<span class="code-line"><span class="code-function">cat</span> _base.html modules/*.html _footer.html &gt; index.html</span>
+<span class="code-line"><span class="code-function">echo</span> "Built index.html — open it in your browser."</span>
+            </code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">这段注释说明：脚本负责把课程的各个部分组装起来。</p>
+              <p class="tl">提示你在课程目录里运行它。</p>
+              <p class="tl">`set -e` 表示一旦有错误就停止，避免生成半成品。</p>
+              <p class="tl">`cat` 把壳、模块和页脚拼成最终的 `index.html`。</p>
+              <p class="tl">最后打印提示，告诉你可以打开课程了。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">关键洞察</strong>
+            <p>生成流程是可重复的：你改完内容，再跑一次脚本就能得到新的课程。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">小测验：你会如何操作？</h2>
+        <div class="quiz-container" id="quiz-module1">
+          <div class="quiz-question-block"
+               data-correct="option-a"
+               data-explanation-right="没错，build.sh 负责重新拼装出 index.html。"
+               data-explanation-wrong="想想是谁把多个模块拼成一个页面的。">
+            <h3 class="quiz-question">你修改了模块 HTML 后，应该做什么才能更新课程？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>重新运行 build.sh</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>删除 styles.css</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>重命名 main.js</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="对，拆成模块可以让写作更清晰、更好维护。"
+               data-explanation-wrong="想想拆分文件会带来什么好处。">
+            <h3 class="quiz-question">为什么课程内容要拆成多个模块文件？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>因为浏览器不能打开单个文件</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>方便逐模块写作和更新</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>为了让文件更大</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="正是这样，它把壳、模块和页脚拼成一个页面。"
+               data-explanation-wrong="答案就在 build.sh 的那行 cat 命令里。">
+            <h3 class="quiz-question">build.sh 最核心的工作是什么？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>把 CSS 转成 JavaScript</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>把代码库上传到云端</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>拼接出 index.html</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module1')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module1')">Try Again</button>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>

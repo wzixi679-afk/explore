@@ -1,0 +1,146 @@
+<section class="module" id="module-3" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">03</span>
+      <h1 class="module-title">设计系统与引擎</h1>
+      <p class="module-subtitle">styles.css + main.js 让课程好看又好用</p>
+    </header>
+
+    <div class="module-body">
+      <section class="screen animate-in">
+        <h2 class="screen-heading">设计系统像一套固定的色板</h2>
+        <p><span class="term" data-definition="CSS 是控制网页外观的语言，像是给页面穿衣服。">CSS</span> 里提前定义好了颜色、字体、间距等<span class="term" data-definition="设计令牌是一组统一的命名值，用来保证所有页面的视觉风格一致。">设计令牌</span>，你只要换主色，就能得到新的视觉风格。</p>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1)">🎨</div>
+            <h4 class="pattern-title">色板与背景</h4>
+            <p class="pattern-desc">统一的暖色背景和强调色，让课程像一本开发者手账。</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2)">🔤</div>
+            <h4 class="pattern-title">字体与层级</h4>
+            <p class="pattern-desc">标题更有个性，正文更易读，代码使用等宽字体。</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-3)">
+            <div class="pattern-icon" style="background: var(--color-actor-3)">📐</div>
+            <h4 class="pattern-title">间距与节奏</h4>
+            <p class="pattern-desc">模块之间留出呼吸感，避免密密麻麻的文本墙。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">交互引擎负责细节体验</h2>
+        <p>main.js 里有很多小引擎，其中一个负责把<span class="term" data-definition="Tooltip 是鼠标悬停时出现的小提示框，用来解释术语。">tooltip</span>摆在合适的位置，不会被卡在容器里。</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+            <pre><code>
+<span class="code-line">  function positionTooltip(term, tip) {</span>
+<span class="code-line">    const rect     = term.getBoundingClientRect();</span>
+<span class="code-line">    const tipWidth = Math.min(320, Math.max(200, window.innerWidth * 0.8));</span>
+<span class="code-line">    let left = rect.left + rect.width / 2 - tipWidth / 2;</span>
+<span class="code-line">    left = Math.max(8, Math.min(left, window.innerWidth - tipWidth - 8));</span>
+<span class="code-line">    tip.style.left  = left + 'px';</span>
+<span class="code-line">    tip.style.width = tipWidth + 'px';</span>
+<span class="code-line">    document.body.appendChild(tip);</span>
+            </code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">先拿到术语在屏幕上的位置。</p>
+              <p class="tl">根据窗口宽度算出 tooltip 的宽度。</p>
+              <p class="tl">计算居中的左边距，并限制它不会跑出屏幕。</p>
+              <p class="tl">把 tooltip 固定在 body 上，避免被其他容器遮挡。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">🧭</div>
+          <div class="callout-content">
+            <strong class="callout-title">为什么重要？</strong>
+            <p>非技术读者最容易迷路的就是术语。稳定的 tooltip 位置能让他们持续理解。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">小测验：设计系统与你</h2>
+        <div class="quiz-container" id="quiz-module3">
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="对，换主色就能整体改变课程气质。"
+               data-explanation-wrong="想想哪一个变量能影响全局强调色。">
+            <h3 class="quiz-question">如果你想让课程更清新，最应该改哪里？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>把所有模块标题手动改颜色</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>在 _base.html 设置新的 accent 颜色</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>删除 styles.css</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-a"
+               data-explanation-right="对，tooltip 会被 append 到 body，避免被隐藏。"
+               data-explanation-wrong="想想 tooltip 为什么要用 position: fixed。">
+            <h3 class="quiz-question">main.js 把 tooltip 放到 body 的原因是？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>避免被容器的 overflow 截断</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>减少 CSS 文件大小</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>让页面更快滚动</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="没错，设计令牌就是为了统一风格。"
+               data-explanation-wrong="想想这些变量的目的是什么。">
+            <h3 class="quiz-question">设计令牌的核心价值是？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>让 HTML 更短</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>让 JavaScript 更复杂</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>保证全局视觉一致</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module3')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module3')">Try Again</button>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>

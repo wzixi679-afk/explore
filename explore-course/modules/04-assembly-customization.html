@@ -1,0 +1,142 @@
+<section class="module" id="module-4" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">04</span>
+      <h1 class="module-title">组装与定制</h1>
+      <p class="module-subtitle">用 _base.html 把课程壳变成你的风格</p>
+    </header>
+
+    <div class="module-body">
+      <section class="screen animate-in">
+        <h2 class="screen-heading">课程壳决定第一印象</h2>
+        <p>_base.html 是课程的<span class="term" data-definition="外壳指的是页面最外层的结构，包含标题、导航和全局样式。">外壳</span>。你在这里设置主色、标题和导航点。</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+            <pre><code>
+<span class="code-line">  <style></span>
+<span class="code-line">    :root {</span>
+<span class="code-line">      --color-accent:       ACCENT_COLOR;</span>
+<span class="code-line">      --color-accent-hover: ACCENT_HOVER;</span>
+<span class="code-line">      --color-accent-light: ACCENT_LIGHT;</span>
+<span class="code-line">      --color-accent-muted: ACCENT_MUTED;</span>
+<span class="code-line">    }</span>
+<span class="code-line">  </style></span>
+            </code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">这里定义四个强调色变量，控制课程的整体气质。</p>
+              <p class="tl">改成你喜欢的配色，所有按钮和高亮都会同步更新。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">定制流程三步走</h2>
+        <p>只要按顺序替换<span class="term" data-definition="占位符是需要被替换的文字标记，比如 COURSE_TITLE。">占位符</span>，课程就能变成你自己的版本。</p>
+
+        <div class="step-cards">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>写好课程标题</strong>
+              <p>把 COURSE_TITLE 换成你想展示的名字。</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>选择强调色</strong>
+              <p>用 ACCENT_COLOR 等变量控制按钮和高亮色。</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>添加导航点</strong>
+              <p>为每个模块写一个 nav-dot，保证滚动导航可用。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">小测验：定制你的课程</h2>
+        <div class="quiz-container" id="quiz-module4">
+          <div class="quiz-question-block"
+               data-correct="option-a"
+               data-explanation-right="没错，标题是在 _base.html 里替换 COURSE_TITLE。"
+               data-explanation-wrong="想想哪一个文件负责最外层的页面结构。">
+            <h3 class="quiz-question">你要修改课程标题，应该改哪个文件？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>_base.html</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>styles.css</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>build.sh</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="对，nav-dot 用来把导航点连到模块。"
+               data-explanation-wrong="提示：这是导航栏里那一排小点。">
+            <h3 class="quiz-question">你想让导航点跳到模块，应该添加什么？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>script 标签</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>nav-dot 按钮</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>新的 CSS reset</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="正确，颜色变量会影响按钮、进度条与高亮。"
+               data-explanation-wrong="想想 accent 颜色会被哪里引用。">
+            <h3 class="quiz-question">改 ACCENT_COLOR 会影响哪一部分？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>模块数量</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>build.sh 的输出内容</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>按钮、进度条和高亮色</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module4')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module4')">Try Again</button>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
