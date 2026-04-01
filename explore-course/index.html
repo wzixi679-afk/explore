@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore 代码库互动课程</title>
+
+  <!-- Google Fonts: Bricolage Grotesque · DM Sans · JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!--
+    CUSTOMIZE PER COURSE — change only the three accent variables below.
+    Options:
+      vermillion  #D94F30 / #C4432A / #FDEEE9 / #E8836C  (default)
+      coral       #E06B56 / #C85A47 / #FDECEA / #E89585
+      teal        #2A7B9B / #1F6280 / #E4F2F7 / #5A9DB8
+      amber       #D4A843 / #BF9530 / #FDF5E0 / #E0C070
+      forest      #2D8B55 / #226B41 / #E8F5EE / #5AAD7A
+  -->
+  <style>
+    :root {
+      --color-accent:       #D94F30;
+      --color-accent-hover: #C4432A;
+      --color-accent-light: #FDEEE9;
+      --color-accent-muted: #E8836C;
+    }
+  </style>
+
+  <script src="main.js" defer></script>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="nav-inner">
+      <span class="nav-title">Explore 代码库互动课程</span>
+      <div class="nav-dots" id="nav-dots" role="tablist">
+        <!--
+          One <button> per module. Replace MODULE_N_NAME with the actual module title.
+
+          <button class="nav-dot" data-target="module-1" data-tooltip="MODULE_1_NAME" role="tab" aria-label="Module 1: MODULE_1_NAME"></button>
+          <button class="nav-dot" data-target="module-2" data-tooltip="MODULE_2_NAME" role="tab" aria-label="Module 2: MODULE_2_NAME"></button>
+          ...
+        -->
+                <button class="nav-dot" data-target="module-1" data-tooltip="入口与生成流程" role="tab" aria-label="Module 1: 入口与生成流程"></button>
+        <button class="nav-dot" data-target="module-2" data-tooltip="技能说明书" role="tab" aria-label="Module 2: 技能说明书"></button>
+        <button class="nav-dot" data-target="module-3" data-tooltip="设计系统与引擎" role="tab" aria-label="Module 3: 设计系统与引擎"></button>
+        <button class="nav-dot" data-target="module-4" data-tooltip="组装与定制" role="tab" aria-label="Module 4: 组装与定制"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- modules/*.html content is assembled here by build.sh -->
+<section class="module" id="module-1" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">01</span>
+      <h1 class="module-title">入口与生成流程</h1>
+      <p class="module-subtitle">一句指令如何变成完整的互动课程</p>
+    </header>
+
+    <div class="module-body">
+      <section class="screen animate-in">
+        <h2 class="screen-heading">一句话触发整个流程</h2>
+        <p>当你说“把这个代码库变成互动课程”，技能会读取当前<span class="term" data-definition="代码库就是项目所有源文件的集合，像一个装满说明书的文件夹。">代码库</span>，并生成一个可直接打开的<span class="term" data-definition="HTML 是浏览器能直接打开的网页格式，就像一本单页电子书。">HTML</span>课程文件夹。</p>
+
+        <div class="flow-animation" data-steps='[
+          {"highlight":"flow-actor-1","label":"你发出指令"},
+          {"highlight":"flow-actor-2","label":"技能读取代码库","packet":true,"from":"actor-1","to":"actor-2"},
+          {"highlight":"flow-actor-2","label":"生成模块文件","packet":true,"from":"actor-2","to":"actor-3"},
+          {"highlight":"flow-actor-3","label":"浏览器打开课程"}
+        ]'>
+          <div class="flow-actors">
+            <div class="flow-actor" id="flow-actor-1">
+              <div class="flow-actor-icon">你</div>
+              <span>使用者</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-2">
+              <div class="flow-actor-icon">📜</div>
+              <span>技能脚本</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-3">
+              <div class="flow-actor-icon">📁</div>
+              <span>课程文件夹</span>
+            </div>
+          </div>
+
+          <div class="flow-packet" id="flow-packet"></div>
+
+          <div class="flow-step-label" id="flow-label">点击“Next Step”开始</div>
+
+          <div class="flow-controls">
+            <button class="btn flow-next-btn">Next Step</button>
+            <button class="btn flow-reset-btn">Restart</button>
+            <span class="flow-progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">组装课程的关键脚本</h2>
+        <p>真正把模块拼成完整页面的是一个<span class="term" data-definition="脚本是可以直接执行的一段指令集合，像一个自动化小帮手。">脚本</span>：`build.sh`。它把课程碎片拼成单个页面。</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+            <pre><code>
+<span class="code-line"><span class="code-comment"># Assembles the course from parts.</span></span>
+<span class="code-line"><span class="code-comment"># Run from the course directory: bash build.sh</span></span>
+<span class="code-line"><span class="code-keyword">set</span> -e</span>
+<span class="code-line"><span class="code-function">cat</span> _base.html modules/*.html _footer.html &gt; index.html</span>
+<span class="code-line"><span class="code-function">echo</span> "Built index.html — open it in your browser."</span>
+            </code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">这段注释说明：脚本负责把课程的各个部分组装起来。</p>
+              <p class="tl">提示你在课程目录里运行它。</p>
+              <p class="tl">`set -e` 表示一旦有错误就停止，避免生成半成品。</p>
+              <p class="tl">`cat` 把壳、模块和页脚拼成最终的 `index.html`。</p>
+              <p class="tl">最后打印提示，告诉你可以打开课程了。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">关键洞察</strong>
+            <p>生成流程是可重复的：你改完内容，再跑一次脚本就能得到新的课程。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">小测验：你会如何操作？</h2>
+        <div class="quiz-container" id="quiz-module1">
+          <div class="quiz-question-block"
+               data-correct="option-a"
+               data-explanation-right="没错，build.sh 负责重新拼装出 index.html。"
+               data-explanation-wrong="想想是谁把多个模块拼成一个页面的。">
+            <h3 class="quiz-question">你修改了模块 HTML 后，应该做什么才能更新课程？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>重新运行 build.sh</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>删除 styles.css</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>重命名 main.js</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="对，拆成模块可以让写作更清晰、更好维护。"
+               data-explanation-wrong="想想拆分文件会带来什么好处。">
+            <h3 class="quiz-question">为什么课程内容要拆成多个模块文件？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>因为浏览器不能打开单个文件</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>方便逐模块写作和更新</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>为了让文件更大</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="正是这样，它把壳、模块和页脚拼成一个页面。"
+               data-explanation-wrong="答案就在 build.sh 的那行 cat 命令里。">
+            <h3 class="quiz-question">build.sh 最核心的工作是什么？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>把 CSS 转成 JavaScript</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>把代码库上传到云端</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>拼接出 index.html</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module1')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module1')">Try Again</button>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-2" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">02</span>
+      <h1 class="module-title">技能说明书</h1>
+      <p class="module-subtitle">SKILL.md 如何指挥整个课程生成</p>
+    </header>
+
+    <div class="module-body">
+      <section class="screen animate-in">
+        <h2 class="screen-heading">SKILL.md 就像一本剧本</h2>
+        <p>在这个<span class="term" data-definition="SKILL.md 是 Claude Code 技能的主说明文件，相当于操作手册。">SKILL.md</span>里，最重要的是课程的<span class="term" data-definition="目录结构就是文件夹的分层方式，帮助你知道每个文件放在哪里。">目录结构</span>，它告诉你最终会生成哪些文件。</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+            <pre><code>
+<span class="code-line">course-name/</span>
+<span class="code-line">  styles.css       ← copied verbatim from references/styles.css</span>
+<span class="code-line">  main.js          ← copied verbatim from references/main.js</span>
+<span class="code-line">  _base.html       ← customized shell (title, accent color, nav dots)</span>
+<span class="code-line">  _footer.html     ← copied verbatim from references/_footer.html</span>
+<span class="code-line">  build.sh         ← copied verbatim from references/build.sh</span>
+<span class="code-line">  briefs/          ← module briefs (complex codebases only, can delete after build)</span>
+<span class="code-line">  modules/</span>
+<span class="code-line">    01-intro.html</span>
+<span class="code-line">    02-actors.html</span>
+<span class="code-line">    ...</span>
+<span class="code-line">  index.html       ← assembled by build.sh (do not write manually)</span>
+            </code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">课程会在一个新文件夹里生成。</p>
+              <p class="tl">样式和交互脚本是直接复制来的，不需要重写。</p>
+              <p class="tl">`_base.html` 是课程壳，用来放标题和导航点。</p>
+              <p class="tl">模块内容放在 `modules/` 里，最后由 build.sh 拼成 index.html。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">谁在和谁对话？</h2>
+        <p>可以把整个流程想成一个小团队对话：你提出目标，SKILL.md 负责指挥，参考资料提供模板，模块文件写具体内容。</p>
+
+        <div class="chat-window" id="chat-module2">
+          <div class="chat-messages">
+            <div class="chat-message" data-msg="0" data-sender="actor-a" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">你</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">你</span>
+                <p>把这个代码库变成互动课程。</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="1" data-sender="actor-b" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">S</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">SKILL.md</span>
+                <p>收到，我先分析代码库，再设计 4-6 个模块。</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="2" data-sender="actor-c" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">R</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">references/</span>
+                <p>我提供样式、交互模板和写作规则。</p>
+              </div>
+            </div>
+            <div class="chat-message" data-msg="3" data-sender="actor-d" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-4)">M</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4)">modules/</span>
+                <p>我负责每一节内容，最后交给 build.sh 组装。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-typing" id="chat-module2-typing" style="display:none">
+            <div class="chat-avatar" id="chat-module2-typing-avatar">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">小测验：你能读懂说明书吗？</h2>
+        <div class="quiz-container" id="quiz-module2">
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="对，复杂代码库需要模块简报来支持并行写作。"
+               data-explanation-wrong="提示：只有复杂代码库才需要提前写简报。">
+            <h3 class="quiz-question">什么时候要使用“并行路径”（写 module briefs）？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>任何代码库都必须这样做</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>代码库复杂、模块数 ≥ 6 时</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>只在写 styles.css 时</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="对，styles.css 和 main.js 必须原样复制。"
+               data-explanation-wrong="想想哪些文件必须保持一致，不能重新生成。">
+            <h3 class="quiz-question">哪些文件必须“原样复制”而不是重新生成？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>modules/ 下的课程内容</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>index.html（最终输出）</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>styles.css 与 main.js</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-a"
+               data-explanation-right="对，模块文件只能写 section 内容，不能放 head/body。"
+               data-explanation-wrong="提示：build.sh 会负责拼壳，所以模块不用再写外层结构。">
+            <h3 class="quiz-question">modules/ 里的文件应该只包含什么？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>仅包含 &lt;section&gt; 内容</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>完整的 HTML 页面</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>只有 CSS</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module2')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module2')">Try Again</button>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-3" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">03</span>
+      <h1 class="module-title">设计系统与引擎</h1>
+      <p class="module-subtitle">styles.css + main.js 让课程好看又好用</p>
+    </header>
+
+    <div class="module-body">
+      <section class="screen animate-in">
+        <h2 class="screen-heading">设计系统像一套固定的色板</h2>
+        <p><span class="term" data-definition="CSS 是控制网页外观的语言，像是给页面穿衣服。">CSS</span> 里提前定义好了颜色、字体、间距等<span class="term" data-definition="设计令牌是一组统一的命名值，用来保证所有页面的视觉风格一致。">设计令牌</span>，你只要换主色，就能得到新的视觉风格。</p>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1)">🎨</div>
+            <h4 class="pattern-title">色板与背景</h4>
+            <p class="pattern-desc">统一的暖色背景和强调色，让课程像一本开发者手账。</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2)">🔤</div>
+            <h4 class="pattern-title">字体与层级</h4>
+            <p class="pattern-desc">标题更有个性，正文更易读，代码使用等宽字体。</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-3)">
+            <div class="pattern-icon" style="background: var(--color-actor-3)">📐</div>
+            <h4 class="pattern-title">间距与节奏</h4>
+            <p class="pattern-desc">模块之间留出呼吸感，避免密密麻麻的文本墙。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">交互引擎负责细节体验</h2>
+        <p>main.js 里有很多小引擎，其中一个负责把<span class="term" data-definition="Tooltip 是鼠标悬停时出现的小提示框，用来解释术语。">tooltip</span>摆在合适的位置，不会被卡在容器里。</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+            <pre><code>
+<span class="code-line">  function positionTooltip(term, tip) {</span>
+<span class="code-line">    const rect     = term.getBoundingClientRect();</span>
+<span class="code-line">    const tipWidth = Math.min(320, Math.max(200, window.innerWidth * 0.8));</span>
+<span class="code-line">    let left = rect.left + rect.width / 2 - tipWidth / 2;</span>
+<span class="code-line">    left = Math.max(8, Math.min(left, window.innerWidth - tipWidth - 8));</span>
+<span class="code-line">    tip.style.left  = left + 'px';</span>
+<span class="code-line">    tip.style.width = tipWidth + 'px';</span>
+<span class="code-line">    document.body.appendChild(tip);</span>
+            </code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">先拿到术语在屏幕上的位置。</p>
+              <p class="tl">根据窗口宽度算出 tooltip 的宽度。</p>
+              <p class="tl">计算居中的左边距，并限制它不会跑出屏幕。</p>
+              <p class="tl">把 tooltip 固定在 body 上，避免被其他容器遮挡。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">🧭</div>
+          <div class="callout-content">
+            <strong class="callout-title">为什么重要？</strong>
+            <p>非技术读者最容易迷路的就是术语。稳定的 tooltip 位置能让他们持续理解。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">小测验：设计系统与你</h2>
+        <div class="quiz-container" id="quiz-module3">
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="对，换主色就能整体改变课程气质。"
+               data-explanation-wrong="想想哪一个变量能影响全局强调色。">
+            <h3 class="quiz-question">如果你想让课程更清新，最应该改哪里？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>把所有模块标题手动改颜色</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>在 _base.html 设置新的 accent 颜色</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>删除 styles.css</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-a"
+               data-explanation-right="对，tooltip 会被 append 到 body，避免被隐藏。"
+               data-explanation-wrong="想想 tooltip 为什么要用 position: fixed。">
+            <h3 class="quiz-question">main.js 把 tooltip 放到 body 的原因是？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>避免被容器的 overflow 截断</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>减少 CSS 文件大小</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>让页面更快滚动</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="没错，设计令牌就是为了统一风格。"
+               data-explanation-wrong="想想这些变量的目的是什么。">
+            <h3 class="quiz-question">设计令牌的核心价值是？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>让 HTML 更短</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>让 JavaScript 更复杂</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>保证全局视觉一致</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module3')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module3')">Try Again</button>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+<section class="module" id="module-4" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">04</span>
+      <h1 class="module-title">组装与定制</h1>
+      <p class="module-subtitle">用 _base.html 把课程壳变成你的风格</p>
+    </header>
+
+    <div class="module-body">
+      <section class="screen animate-in">
+        <h2 class="screen-heading">课程壳决定第一印象</h2>
+        <p>_base.html 是课程的<span class="term" data-definition="外壳指的是页面最外层的结构，包含标题、导航和全局样式。">外壳</span>。你在这里设置主色、标题和导航点。</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+            <pre><code>
+<span class="code-line">  <style></span>
+<span class="code-line">    :root {</span>
+<span class="code-line">      --color-accent:       ACCENT_COLOR;</span>
+<span class="code-line">      --color-accent-hover: ACCENT_HOVER;</span>
+<span class="code-line">      --color-accent-light: ACCENT_LIGHT;</span>
+<span class="code-line">      --color-accent-muted: ACCENT_MUTED;</span>
+<span class="code-line">    }</span>
+<span class="code-line">  </style></span>
+            </code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">这里定义四个强调色变量，控制课程的整体气质。</p>
+              <p class="tl">改成你喜欢的配色，所有按钮和高亮都会同步更新。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">定制流程三步走</h2>
+        <p>只要按顺序替换<span class="term" data-definition="占位符是需要被替换的文字标记，比如 COURSE_TITLE。">占位符</span>，课程就能变成你自己的版本。</p>
+
+        <div class="step-cards">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>写好课程标题</strong>
+              <p>把 COURSE_TITLE 换成你想展示的名字。</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>选择强调色</strong>
+              <p>用 ACCENT_COLOR 等变量控制按钮和高亮色。</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>添加导航点</strong>
+              <p>为每个模块写一个 nav-dot，保证滚动导航可用。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen animate-in">
+        <h2 class="screen-heading">小测验：定制你的课程</h2>
+        <div class="quiz-container" id="quiz-module4">
+          <div class="quiz-question-block"
+               data-correct="option-a"
+               data-explanation-right="没错，标题是在 _base.html 里替换 COURSE_TITLE。"
+               data-explanation-wrong="想想哪一个文件负责最外层的页面结构。">
+            <h3 class="quiz-question">你要修改课程标题，应该改哪个文件？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>_base.html</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>styles.css</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>build.sh</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="对，nav-dot 用来把导航点连到模块。"
+               data-explanation-wrong="提示：这是导航栏里那一排小点。">
+            <h3 class="quiz-question">你想让导航点跳到模块，应该添加什么？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>script 标签</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>nav-dot 按钮</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>新的 CSS reset</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="正确，颜色变量会影响按钮、进度条与高亮。"
+               data-explanation-wrong="想想 accent 颜色会被哪里引用。">
+            <h3 class="quiz-question">改 ACCENT_COLOR 会影响哪一部分？</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>模块数量</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>build.sh 的输出内容</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>按钮、进度条和高亮色</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module4')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module4')">Try Again</button>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+  </main>
+
+</body>
+</html>
